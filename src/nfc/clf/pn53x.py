@@ -175,6 +175,7 @@ class Chipset(object):
 
             try:
                 self.write_frame(head + data + tail)
+                time.sleep(0.001) # Had ACK response timeouts with PN532 & FTDI TTL-232R-3V3 and was fixed by implementing a timer in between the write and read frames 
                 frame = self.read_frame(timeout=100)
             except IOError:
                 self.log.error("input/output error while waiting for ack")
